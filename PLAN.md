@@ -243,10 +243,23 @@ boss_account.balance = recharge_total + gift_total - consume_total - locked_tota
 - 投诉记录查看
 - 总流水查看
 
-### 7.3 部署
+### 7.3 老板端开发（第 12 天并行）
+
+**老板账号管理（管理后台）：**
+- 老板账号导入表单
+- 老板账号列表（启用/禁用/编辑）
+
+**老板端网页：**
+- 登录页（手机号 + 密码）
+- 首页（累计充值/累计消费/余额）
+- 订单明细列表（日期筛选 + 状态筛选）
+- 订单详情（含折扣情况）
+
+### 7.4 部署
 - [ ] 后端部署到服务器（JAR）
 - [ ] 前端编译打包（Nginx 静态托管）
-- [ ] 域名解析（esport.wusidai.com 或独立域名）
+- [ ] 老板端部署
+- [ ] 域名解析
 
 ---
 
@@ -258,6 +271,7 @@ boss_account.balance = recharge_total + gift_total - consume_total - locked_tota
 | `Haber8023/eSportClub-backend` | Spring Boot 后端 |
 | `Haber8023/eSportClub-admin` | 管理后台前端 |
 | `Haber8023/eSportClub-companion` | 陪玩端前端 |
+| `Haber8023/eSportClub-boss` | 老板端前端 |
 
 ---
 
@@ -271,7 +285,7 @@ boss_account.balance = recharge_total + gift_total - consume_total - locked_tota
 | M4（第11天） | 陪玩入驻审核全流程通 |
 | M5（第14天） | 工资结算功能上线 |
 | M6（第18天） | 所有管理后台工作台上线 |
-| M7（第20天） | 陪玩端完整 + 部署上线 |
+| M7（第20天） | 陪玩端完整 + 老板端完整 + 部署上线 |
 
 ---
 
@@ -283,6 +297,7 @@ boss_account.balance = recharge_total + gift_total - consume_total - locked_tota
 | 后端 | Spring Boot 3.x + MyBatis-Plus + JWT |
 | 管理后台前端 | React 18 + Vite + Ant Design 5 + Axios |
 | 陪玩端前端 | React 18 + Vite + Ant Design 5 + Axios |
+| 老板端前端 | React 18 + Vite + Ant Design 5 + Axios |
 | 鉴权 | JWT（Bearer Token） |
 | 构建 | Maven + npm |
 | 部署 | Nginx（静态托管后端JAR运行） |
