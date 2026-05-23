@@ -46,7 +46,6 @@ body {
     linear-gradient(175deg, #0d0b1e 0%, #14103a 50%, #0d0b1e 100%);
 }
 
-/* 星星 */
 .stars {
   position: absolute;
   inset: 0;
@@ -68,7 +67,6 @@ body {
   100% { opacity: 0.9; }
 }
 
-/* 流星 */
 .meteor-container {
   position: fixed;
   inset: 0;
@@ -106,7 +104,6 @@ body {
   100% { opacity: 0; transform: translate(-300px, 300px); }
 }
 
-/* 浮动几何 */
 .geo-container {
   position: fixed;
   inset: 0;
@@ -187,7 +184,6 @@ body {
   100% { opacity: 0; transform: translateY(-90px) rotate(90deg) scale(0.6); }
 }
 
-/* 极光 */
 .aurora {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -236,7 +232,6 @@ body {
   100% { transform: translateX(20%) skewX(5deg); }
 }
 
-/* 樱花飘落 */
 .sakura-container {
   position: fixed;
   inset: 0;
@@ -261,7 +256,6 @@ body {
   100% { transform: translateY(105vh) rotate(680deg) scale(0.4); opacity: 0; }
 }
 
-/* 主区域 */
 .main {
   position: relative;
   z-index: 10;
@@ -273,7 +267,6 @@ body {
   gap: 0;
 }
 
-/* 左侧装饰 */
 .left-panel {
   display: none;
 }
@@ -289,7 +282,6 @@ body {
     gap: 0;
   }
 
-  /* 桌面端隐藏卡片内的角色图标和称号气泡 */
   .login-card .avatar-zone {
     display: none;
   }
@@ -412,7 +404,6 @@ body {
   }
 }
 
-/* ===== 登录卡片 ===== */
 .login-card {
   width: 100%;
   max-width: 380px;
@@ -432,7 +423,6 @@ body {
   overflow: visible;
 }
 
-/* 卡片顶部装饰条 */
 .card-top-bar {
   position: absolute;
   top: 0;
@@ -445,43 +435,11 @@ body {
   opacity: 0.7;
 }
 
-/* 装饰角标 */
-.corner-deco {
-  position: absolute;
-  width: 36px;
-  height: 36px;
-  pointer-events: none;
-}
-
-.corner-deco.top-right {
-  top: 14px;
-  right: 14px;
-}
-
-.corner-deco.top-left {
-  top: 14px;
-  left: 14px;
-  transform: scaleX(-1);
-}
-
-.corner-deco.bottom-right {
-  bottom: 14px;
-  right: 14px;
-  transform: scale(-1);
-}
-
-.corner-deco.bottom-left {
-  bottom: 14px;
-  left: 14px;
-  transform: scaleY(-1);
-}
-
 @keyframes cardIn {
   0%   { opacity: 0; transform: translateY(35px) scale(0.92); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* 头像区 */
 .avatar-zone {
   display: flex;
   flex-direction: column;
@@ -517,7 +475,6 @@ body {
   fill: white;
 }
 
-/* 称号气泡 */
 .title-bubble {
   margin-top: 12px;
   padding: 4px 18px;
@@ -532,7 +489,6 @@ body {
   backdrop-filter: blur(8px);
 }
 
-/* 小星星装饰 title-bubble */
 .title-bubble::before,
 .title-bubble::after {
   content: '✦';
@@ -553,7 +509,6 @@ body {
   50%       { opacity: 1;   transform: translateY(-50%) scale(1.2); }
 }
 
-/* 标题区 */
 .card-title {
   text-align: center;
   margin-bottom: 26px;
@@ -573,7 +528,6 @@ body {
   letter-spacing: 1px;
 }
 
-/* 输入框 */
 .field {
   margin-bottom: 16px;
   position: relative;
@@ -634,7 +588,6 @@ body {
   transform: scale(1.1);
 }
 
-/* 记住 */
 .remember-row {
   display: flex;
   align-items: center;
@@ -686,7 +639,6 @@ body {
   transform: scale(1) rotate(0deg);
 }
 
-/* 登录按钮 */
 .btn-login {
   width: 100%;
   padding: 14px;
@@ -735,12 +687,8 @@ body {
 }
 
 .btn-login:hover::before { left: 100%; }
+.btn-login:active { transform: translateY(-1px) scale(0.99); }
 
-.btn-login:active {
-  transform: translateY(-1px) scale(0.99);
-}
-
-/* 底部 */
 .footer {
   display: flex;
   flex-direction: column;
@@ -757,7 +705,6 @@ body {
   font-size: 10px;
 }
 
-/* 浮动装饰元素 */
 .float-star {
   position: absolute;
   pointer-events: none;
@@ -791,7 +738,6 @@ body {
   50%       { transform: translateY(-6px) rotate(15deg) scale(1.2); opacity: 1; }
 }
 
-/* 移动端 */
 @media (max-width: 480px) {
   .login-card {
     padding: 32px 26px 28px;
@@ -821,7 +767,6 @@ body {
 <div class="sakura-container" id="sakuraContainer"></div>
 
 <div class="main">
-  <!-- 左侧角色展示 -->
   <div class="left-panel">
     <div class="avatar-wrap">
       <div class="avatar-ring"></div>
@@ -841,45 +786,33 @@ body {
             <stop offset="100%" style="stop-color:#88d4c0"/>
           </linearGradient>
         </defs>
-        <!-- 头发 -->
         <ellipse cx="60" cy="50" rx="36" ry="38" fill="url(#g1)"/>
-        <!-- 刘海 -->
         <ellipse cx="60" cy="46" rx="29" ry="29" fill="#1a1030"/>
-        <!-- 脸 -->
         <ellipse cx="60" cy="55" rx="23" ry="25" fill="#ffd5c2"/>
-        <!-- 眼睛 左 -->
         <ellipse cx="51" cy="53" rx="4.5" ry="5.5" fill="#2d1b4e"/>
         <circle cx="52.5" cy="51.5" r="2" fill="white" opacity="0.85"/>
         <circle cx="51" cy="53" r="1" fill="white" opacity="0.5"/>
-        <!-- 眼睛 右 -->
         <ellipse cx="69" cy="53" rx="4.5" ry="5.5" fill="#2d1b4e"/>
         <circle cx="70.5" cy="51.5" r="2" fill="white" opacity="0.85"/>
         <circle cx="69" cy="53" r="1" fill="white" opacity="0.5"/>
-        <!-- 腮红 -->
         <ellipse cx="46" cy="60" rx="6" ry="3.5" fill="#ffb7c5" opacity="0.35"/>
         <ellipse cx="74" cy="60" rx="6" ry="3.5" fill="#ffb7c5" opacity="0.35"/>
-        <!-- 嘴 -->
         <path d="M56.5 65.5 Q60 69 63.5 65.5" stroke="#e891a4" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        <!-- 猫耳 -->
         <polygon points="41,27 48,8 56,27" fill="url(#g1)"/>
         <polygon points="43,25 48,14 53,25" fill="#ffcdd8" opacity="0.6"/>
         <polygon points="64,27 72,8 79,27" fill="url(#g1)"/>
         <polygon points="67,25 72,14 77,25" fill="#ffcdd8" opacity="0.6"/>
-        <!-- 耳机 -->
         <path d="M30 48 Q26 26 44 19 Q54 15 60 15 Q66 15 76 19 Q94 26 90 48" stroke="url(#g2)" stroke-width="5.5" fill="none" stroke-linecap="round"/>
         <rect x="24" y="46" width="11" height="17" rx="5.5" fill="url(#g2)"/>
         <rect x="25" y="48" width="4" height="8" rx="2" fill="#ffd4e0" opacity="0.4"/>
         <rect x="85" y="46" width="11" height="17" rx="5.5" fill="url(#g2)"/>
         <rect x="91" y="48" width="4" height="8" rx="2" fill="#ffd4e0" opacity="0.4"/>
-        <!-- 麦克风 -->
         <line x1="90" y1="56" x2="101" y2="47" stroke="url(#g3)" stroke-width="2.5" stroke-linecap="round"/>
         <circle cx="103" cy="44" r="5.5" fill="url(#g2)"/>
-        <!-- 樱花发饰 -->
         <circle cx="80" cy="20" r="5.5" fill="#ffb7c5" opacity="0.9"/>
         <circle cx="76" cy="15" r="3.5" fill="#fff0f3" opacity="0.9"/>
         <circle cx="84" cy="15" r="3.5" fill="#fff0f3" opacity="0.9"/>
         <circle cx="80" cy="12" r="2.5" fill="#ffcdd8" opacity="0.7"/>
-        <!-- 领口蝴蝶结 -->
         <path d="M48 84 Q54 80 54 86 Q54 92 48 88 Q52 86 48 84Z" fill="url(#g1)" opacity="0.8"/>
         <path d="M72 84 Q66 80 66 86 Q66 92 72 88 Q68 86 72 84Z" fill="url(#g1)" opacity="0.8"/>
         <circle cx="60" cy="86" r="3" fill="#ffb7c5"/>
@@ -907,11 +840,8 @@ body {
     </div>
   </div>
 
-  <!-- 登录卡片 -->
   <div class="login-card">
     <div class="card-top-bar"></div>
-
-    <!-- 浮动星星装饰 -->
     <div class="float-star s1">✦</div>
     <div class="float-star s2">✧</div>
     <div class="float-star s3">✦</div>
@@ -930,9 +860,9 @@ body {
 
     <form id="loginForm" autocomplete="off">
       <div class="field">
-        <label>用户名 / 手机号</label>
+        <label>用户名</label>
         <div class="input-wrap">
-          <input type="text" id="username" placeholder="请输入用户名或手机号" autocomplete="username">
+          <input type="text" id="username" placeholder="请输入用户名" autocomplete="username">
           <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         </div>
       </div>
@@ -965,7 +895,12 @@ body {
   </div>
 </div>
 
+
 <script>
+var API_BASE = '/api';
+var IS_DEV = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+if (IS_DEV) API_BASE = 'http://127.0.0.1:11112/api';
+
 // 流星
 (function() {
   var container = document.getElementById('meteorContainer');
@@ -974,8 +909,8 @@ body {
     var m = document.createElement('div');
     m.className = 'meteor';
 
-    var startX = 60 + Math.random() * 40; // vw
-    var startY = Math.random() * 30;       // vh
+    var startX = 60 + Math.random() * 40;
+    var startY = Math.random() * 30;
     var dur = 0.8 + Math.random() * 0.6;
     var delay = Math.random() * 8;
 
@@ -1070,6 +1005,30 @@ body {
   setInterval(createPetal, 900);
 })();
 
+// 错误提示
+function showError(msg) {
+  var existing = document.querySelector('.error-toast');
+  if (existing) existing.remove();
+  var toast = document.createElement('div');
+  toast.className = 'error-toast';
+  toast.textContent = msg;
+  toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(245,80,80,0.9);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;z-index:9999;animation:fadeIn 0.3s';
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(function(){ toast.remove(); }, 300); }, 3000);
+}
+
+// 成功提示
+function showSuccess(msg) {
+  var existing = document.querySelector('.success-toast');
+  if (existing) existing.remove();
+  var toast = document.createElement('div');
+  toast.className = 'success-toast';
+  toast.textContent = msg;
+  toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(80,200,120,0.9);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;z-index:9999;animation:fadeIn 0.3s';
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(function(){ toast.remove(); }, 300); }, 3000);
+}
+
 // 登录提交
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -1078,16 +1037,75 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   btn.textContent = '登录中...';
   btn.disabled = true;
 
-  setTimeout(function() {
-    btn.textContent = '登录成功 ✦';
-    btn.style.background = 'linear-gradient(135deg, #a8e6cf, #56c596)';
-    setTimeout(function() {
+  var username = document.getElementById('username').value.trim();
+  var password = document.getElementById('password').value;
+
+  if (!username || !password) {
+    showError('请输入用户名和密码');
+    btn.textContent = orig;
+    btn.disabled = false;
+    return;
+  }
+
+  fetch(API_BASE + '/unified/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: username, password: password })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.code === 200) {
+      btn.textContent = '登录成功 ✦';
+      btn.style.background = 'linear-gradient(135deg, #a8e6cf, #56c596)';
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('role', res.data.role);
+      localStorage.setItem('profile', JSON.stringify(res.data));
+      showSuccess('登录成功，正在跳转...');
+
+      // 根据角色跳转
+      setTimeout(function() {
+        var role = res.data.role;
+        if (role === 'COMPANION') {
+          window.location.href = '/esport/companion/';
+        } else if (role === 'BOSS') {
+          window.location.href = '/esport/boss/';
+        } else if (role === 'ADMIN' || role === 'SHOP_OWNER' || role === 'SUPER_ADMIN') {
+          window.location.href = '/esport/admin/';
+        } else {
+          showError('未知角色，请联系管理员');
+          btn.textContent = orig;
+          btn.disabled = false;
+          btn.style.background = '';
+        }
+      }, 800);
+    } else {
+      showError(res.msg || '登录失败');
       btn.textContent = orig;
-      btn.style.background = '';
       btn.disabled = false;
-    }, 2200);
-  }, 1600);
+    }
+  })
+  .catch(function(err) {
+    showError('网络错误，请稍后重试');
+    btn.textContent = orig;
+    btn.disabled = false;
+  });
 });
+
+// 检查是否已登录
+(function() {
+  var token = localStorage.getItem('token');
+  var role = localStorage.getItem('role');
+  if (token && role) {
+    // 已登录，直接跳转
+    if (role === 'COMPANION') {
+      window.location.href = '/esport/companion/';
+    } else if (role === 'BOSS') {
+      window.location.href = '/esport/boss/';
+    } else {
+      window.location.href = '/esport/admin/';
+    }
+  }
+})();
 </script>
 </body>
 </html>
