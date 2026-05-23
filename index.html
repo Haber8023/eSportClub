@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电竞少女 · 登录</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --pink: #ffb7c5;
+  --pink-mid: #ffd4e0;
+  --pink-deep: #f5a0b0;
+  --purple: #c77dff;
+  --mint: #a8e6cf;
+  --yellow: #ffe66d;
+  --cyan: #7ee8fa;
+  --dark: #0d0b1e;
+  --card-bg: rgba(255,255,255,0.08);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--dark);
+  font-family: 'Noto Sans SC', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.bg-main {
+  background:
+    radial-gradient(ellipse 100% 80% at 10% 90%, rgba(255,183,197,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 70% at 90% 10%, rgba(199,125,255,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 60% at 50% 100%, rgba(168,230,207,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 0%, rgba(255,230,109,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 50% at 80% 80%, rgba(126,232,250,0.08) 0%, transparent 45%),
+    radial-gradient(ellipse 35% 35% at 20% 20%, rgba(255,107,157,0.1) 0%, transparent 50%),
+    linear-gradient(175deg, #0d0b1e 0%, #14103a 50%, #0d0b1e 100%);
+}
+
+/* 星星 */
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 15px 25px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(2px 2px at 45px 65px, rgba(255,230,109,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 85px 40px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(2px 2px at 120px 75px, rgba(199,125,255,0.5), transparent),
+    radial-gradient(1px 1px at 155px 20px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 200px 50px, rgba(255,183,197,0.5), transparent),
+    radial-gradient(1px 1px at 250px 85px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 300px 30px, rgba(168,230,207,0.5), transparent);
+  background-size: 320px 100px;
+  animation: starTwinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes starTwinkle {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.9; }
+}
+
+/* 流星 */
+.meteor-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.meteor {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 4px 1px rgba(255,255,255,0.8);
+  animation: meteorFall linear forwards;
+  opacity: 0;
+}
+
+.meteor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.7), transparent);
+  right: 2px;
+}
+
+@keyframes meteorFall {
+  0%   { opacity: 0; transform: translate(0, 0); }
+  5%   { opacity: 1; }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-300px, 300px); }
+}
+
+/* 浮动几何 */
+.geo-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.geo {
+  position: absolute;
+  opacity: 0;
+  animation: geoFloat ease-in-out infinite;
+}
+
+.geo.diamond {
+  width: 18px;
+  height: 18px;
+  background: rgba(199,125,255,0.3);
+  transform: rotate(45deg);
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(199,125,255,0.25);
+}
+
+.geo.circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,183,197,0.4);
+  background: rgba(255,183,197,0.1);
+  box-shadow: 0 0 10px rgba(255,183,197,0.2);
+}
+
+.geo.cross {
+  width: 16px;
+  height: 16px;
+  position: relative;
+}
+
+.geo.cross::before,
+.geo.cross::after {
+  content: '';
+  position: absolute;
+  background: rgba(168,230,207,0.45);
+  border-radius: 1px;
+}
+
+.geo.cross::before {
+  width: 100%; height: 2px;
+  top: 50%; left: 0;
+  transform: translateY(-50%);
+}
+
+.geo.cross::after {
+  width: 2px; height: 100%;
+  left: 50%; top: 0;
+  transform: translateX(-50%);
+}
+
+.geo.triangle {
+  width: 0; height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 16px solid rgba(255,230,109,0.35);
+  filter: drop-shadow(0 0 6px rgba(255,230,109,0.25));
+}
+
+.geo.ring {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(126,232,250,0.35);
+  background: transparent;
+  box-shadow: 0 0 10px rgba(126,232,250,0.15);
+}
+
+@keyframes geoFloat {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
+  15%  { opacity: 0.7; transform: translateY(-15px) rotate(20deg) scale(1); }
+  85%  { opacity: 0.5; transform: translateY(-60px) rotate(60deg) scale(0.9); }
+  100% { opacity: 0; transform: translateY(-90px) rotate(90deg) scale(0.6); }
+}
+
+/* 极光 */
+.aurora {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 45vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.5;
+}
+
+.aurora-band {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  left: -50%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(199,125,255,0.12) 20%,
+    rgba(168,230,207,0.08) 35%,
+    rgba(255,183,197,0.1) 50%,
+    rgba(126,232,250,0.08) 65%,
+    rgba(255,230,109,0.06) 80%,
+    transparent 100%
+  );
+  background-size: 50% 100%;
+  animation: auroraMove 12s ease-in-out infinite alternate;
+  filter: blur(30px);
+}
+
+.aurora-band:nth-child(2) {
+  animation-duration: 18s;
+  animation-direction: alternate-reverse;
+  opacity: 0.6;
+  top: 10%;
+}
+
+.aurora-band:nth-child(3) {
+  animation-duration: 22s;
+  opacity: 0.4;
+  top: 20%;
+  height: 60%;
+}
+
+@keyframes auroraMove {
+  0%   { transform: translateX(-20%) skewX(-5deg); }
+  100% { transform: translateX(20%) skewX(5deg); }
+}
+
+/* 樱花飘落 */
+.sakura-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.petal {
+  position: absolute;
+  background: radial-gradient(ellipse at 30% 30%, #fff0f3 0%, var(--pink) 55%, rgba(255,183,197,0.3) 100%);
+  border-radius: 50% 0 50% 50%;
+  opacity: 0;
+  animation: sakuraFall linear infinite;
+  filter: blur(0.4px);
+  box-shadow: 0 0 4px rgba(255,183,197,0.3);
+}
+
+@keyframes sakuraFall {
+  0%   { transform: translateY(-20px) rotate(0deg) scale(0.7); opacity: 0; }
+  8%   { opacity: 0.85; }
+  92%  { opacity: 0.6; }
+  100% { transform: translateY(105vh) rotate(680deg) scale(0.4); opacity: 0; }
+}
+
+/* 主区域 */
+.main {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 0;
+}
+
+/* 左侧装饰 */
+.left-panel {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 380px;
+    padding: 40px;
+    gap: 0;
+  }
+
+  /* 桌面端隐藏卡片内的角色图标和称号气泡 */
+  .login-card .avatar-zone {
+    display: none;
+  }
+
+  .login-card .card-title .sub {
+    display: none;
+  }
+
+  .avatar-wrap {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: avatarFloat 3.5s ease-in-out infinite;
+  }
+
+  .avatar-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      var(--pink), var(--purple), var(--mint), var(--yellow),
+      var(--pink-mid), var(--purple), var(--pink)
+    );
+    animation: ringSpin 5s linear infinite;
+    opacity: 0.6;
+  }
+
+  .avatar-ring-inner {
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--dark);
+  }
+
+  @keyframes ringSpin { to { transform: rotate(360deg); } }
+  @keyframes avatarFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-14px); }
+  }
+
+  .avatar-wrap svg {
+    width: 110px;
+    height: 110px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .slogan {
+    margin-top: 28px;
+    text-align: center;
+  }
+
+  .slogan h1 {
+    font-family: 'ZCOOL KuaiLe', cursive;
+    font-size: 34px;
+    letter-spacing: 5px;
+    background: linear-gradient(135deg, #fff 20%, var(--pink-mid) 50%, var(--purple) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(255,183,197,0.4));
+  }
+
+  .slogan p {
+    color: rgba(255,215,230,0.55);
+    font-size: 13px;
+    margin-top: 8px;
+    letter-spacing: 3px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+    justify-content: center;
+  }
+
+  .tag {
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(255,183,197,0.1);
+    border: 1px solid rgba(255,183,197,0.25);
+    color: var(--pink);
+    font-size: 11px;
+    letter-spacing: 1px;
+    backdrop-filter: blur(8px);
+  }
+
+  .sparkle-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .sparkle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: sparklePulse 1.5s ease-in-out infinite;
+  }
+
+  .sparkle:nth-child(1) { background: var(--pink); animation-delay: 0s; }
+  .sparkle:nth-child(2) { background: var(--yellow); animation-delay: 0.3s; }
+  .sparkle:nth-child(3) { background: var(--purple); animation-delay: 0.6s; }
+  .sparkle:nth-child(4) { background: var(--mint); animation-delay: 0.9s; }
+  .sparkle:nth-child(5) { background: var(--pink-mid); animation-delay: 1.2s; }
+
+  @keyframes sparklePulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50%       { transform: scale(1.5); opacity: 1; }
+  }
+
+  .main {
+    gap: 80px;
+  }
+}
+
+/* ===== 登录卡片 ===== */
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--card-bg);
+  border: 1.5px solid rgba(255,215,230,0.18);
+  border-radius: 28px;
+  padding: 38px 34px 32px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 0 0 1px rgba(255,183,197,0.06),
+    0 24px 70px rgba(0,0,0,0.45),
+    0 0 80px rgba(199,125,255,0.07),
+    inset 0 1.5px 0 rgba(255,255,255,0.1);
+  animation: cardIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  position: relative;
+  overflow: visible;
+}
+
+/* 卡片顶部装饰条 */
+.card-top-bar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--pink), var(--purple), transparent);
+  border-radius: 0 0 4px 4px;
+  opacity: 0.7;
+}
+
+/* 装饰角标 */
+.corner-deco {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+}
+
+.corner-deco.top-right {
+  top: 14px;
+  right: 14px;
+}
+
+.corner-deco.top-left {
+  top: 14px;
+  left: 14px;
+  transform: scaleX(-1);
+}
+
+.corner-deco.bottom-right {
+  bottom: 14px;
+  right: 14px;
+  transform: scale(-1);
+}
+
+.corner-deco.bottom-left {
+  bottom: 14px;
+  left: 14px;
+  transform: scaleY(-1);
+}
+
+@keyframes cardIn {
+  0%   { opacity: 0; transform: translateY(35px) scale(0.92); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 头像区 */
+.avatar-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.avatar-badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 6px 24px rgba(255,107,157,0.45),
+    0 0 0 3px rgba(255,183,197,0.15),
+    inset 0 1.5px 0 rgba(255,255,255,0.25);
+  animation: badgeGlow 2.5s ease-in-out infinite alternate;
+  position: relative;
+}
+
+@keyframes badgeGlow {
+  0%   { box-shadow: 0 6px 24px rgba(255,107,157,0.45), 0 0 0 3px rgba(255,183,197,0.15); }
+  100% { box-shadow: 0 6px 32px rgba(255,107,157,0.7), 0 0 0 5px rgba(255,183,197,0.08), 0 0 50px rgba(199,125,255,0.25); }
+}
+
+.avatar-badge svg {
+  width: 32px;
+  height: 32px;
+  fill: white;
+}
+
+/* 称号气泡 */
+.title-bubble {
+  margin-top: 12px;
+  padding: 4px 18px;
+  background: rgba(255,183,197,0.12);
+  border: 1px solid rgba(255,183,197,0.2);
+  border-radius: 20px;
+  color: var(--pink-mid);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+
+/* 小星星装饰 title-bubble */
+.title-bubble::before,
+.title-bubble::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8px;
+  color: var(--pink);
+  opacity: 0.7;
+  animation: starBlink 1.8s ease-in-out infinite;
+}
+
+.title-bubble::before { left: 7px; }
+.title-bubble::after  { right: 7px; animation-delay: 0.9s; }
+
+@keyframes starBlink {
+  0%, 100% { opacity: 0.4; transform: translateY(-50%) scale(0.8); }
+  50%       { opacity: 1;   transform: translateY(-50%) scale(1.2); }
+}
+
+/* 标题区 */
+.card-title {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.card-title h2 {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.card-title .sub {
+  color: rgba(255,215,230,0.45);
+  font-size: 12px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+/* 输入框 */
+.field {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.field label {
+  display: block;
+  color: rgba(255,215,230,0.65);
+  font-size: 12px;
+  margin-bottom: 7px;
+  letter-spacing: 1px;
+  padding-left: 4px;
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap .icon {
+  position: absolute;
+  left: 13px;
+  width: 17px;
+  height: 17px;
+  fill: rgba(255,183,197,0.4);
+  transition: fill 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-wrap input {
+  width: 100%;
+  padding: 13px 13px 13px 42px;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,183,197,0.12);
+  border-radius: 14px;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  caret-color: var(--pink);
+}
+
+.input-wrap input::placeholder {
+  color: rgba(255,255,255,0.18);
+}
+
+.input-wrap input:focus {
+  border-color: rgba(255,183,197,0.55);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 3px rgba(255,183,197,0.12), 0 4px 16px rgba(255,107,157,0.1);
+}
+
+.input-wrap:focus-within .icon {
+  fill: var(--pink);
+  transform: scale(1.1);
+}
+
+/* 记住 */
+.remember-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  padding: 0 2px;
+}
+
+.remember-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: rgba(255,215,230,0.55);
+  font-size: 12px;
+  user-select: none;
+}
+
+.remember-label input { display: none; }
+
+.checkbox-cute {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255,183,197,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+}
+
+.checkbox-cute svg {
+  width: 10px;
+  height: 10px;
+  fill: white;
+  opacity: 0;
+  transform: scale(0) rotate(-20deg);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.remember-label input:checked ~ .checkbox-cute {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(255,107,157,0.4);
+}
+
+.remember-label input:checked ~ .checkbox-cute svg {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* 登录按钮 */
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--pink-deep) 0%, var(--purple) 100%);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 4px 18px rgba(255,107,157,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.btn-login::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.5s;
+}
+
+.btn-login::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+  filter: blur(2px);
+}
+
+.btn-login:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(255,107,157,0.55);
+}
+
+.btn-login:hover::before { left: 100%; }
+
+.btn-login:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* 底部 */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 20px;
+  color: rgba(255,255,255,0.18);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.icp-filing {
+  color: rgba(255,255,255,0.22);
+  font-size: 10px;
+}
+
+/* 浮动装饰元素 */
+.float-star {
+  position: absolute;
+  pointer-events: none;
+  animation: floatStar 3s ease-in-out infinite;
+}
+
+.float-star.s1 {
+  top: 22px; right: 22px;
+  font-size: 14px;
+  color: var(--yellow);
+  animation-delay: 0s;
+}
+
+.float-star.s2 {
+  bottom: 40px; left: 18px;
+  font-size: 10px;
+  color: var(--mint);
+  animation-delay: 1s;
+}
+
+.float-star.s3 {
+  top: 50%; right: 12px;
+  font-size: 8px;
+  color: var(--purple);
+  animation-delay: 0.5s;
+  opacity: 0.7;
+}
+
+@keyframes floatStar {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; }
+  50%       { transform: translateY(-6px) rotate(15deg) scale(1.2); opacity: 1; }
+}
+
+/* 移动端 */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 32px 26px 28px;
+    border-radius: 24px;
+  }
+
+  .avatar-badge {
+    width: 64px;
+    height: 64px;
+  }
+
+  .card-title h2 { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer bg-main"></div>
+<div class="bg-layer stars"></div>
+<div class="aurora">
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+</div>
+<div class="geo-container" id="geoContainer"></div>
+<div class="meteor-container" id="meteorContainer"></div>
+<div class="sakura-container" id="sakuraContainer"></div>
+
+<div class="main">
+  <!-- 左侧角色展示 -->
+  <div class="left-panel">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <div class="avatar-ring-inner"></div>
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffb7c5"/>
+            <stop offset="100%" style="stop-color:#c77dff"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff6b9d"/>
+            <stop offset="100%" style="stop-color:#e891a4"/>
+          </linearGradient>
+          <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#a8e6cf"/>
+            <stop offset="100%" style="stop-color:#88d4c0"/>
+          </linearGradient>
+        </defs>
+        <!-- 头发 -->
+        <ellipse cx="60" cy="50" rx="36" ry="38" fill="url(#g1)"/>
+        <!-- 刘海 -->
+        <ellipse cx="60" cy="46" rx="29" ry="29" fill="#1a1030"/>
+        <!-- 脸 -->
+        <ellipse cx="60" cy="55" rx="23" ry="25" fill="#ffd5c2"/>
+        <!-- 眼睛 左 -->
+        <ellipse cx="51" cy="53" rx="4.5" ry="5.5" fill="#2d1b4e"/>
+        <circle cx="52.5" cy="51.5" r="2" fill="white" opacity="0.85"/>
+        <circle cx="51" cy="53" r="1" fill="white" opacity="0.5"/>
+        <!-- 眼睛 右 -->
+        <ellipse cx="69" cy="53" rx="4.5" ry="5.5" fill="#2d1b4e"/>
+        <circle cx="70.5" cy="51.5" r="2" fill="white" opacity="0.85"/>
+        <circle cx="69" cy="53" r="1" fill="white" opacity="0.5"/>
+        <!-- 腮红 -->
+        <ellipse cx="46" cy="60" rx="6" ry="3.5" fill="#ffb7c5" opacity="0.35"/>
+        <ellipse cx="74" cy="60" rx="6" ry="3.5" fill="#ffb7c5" opacity="0.35"/>
+        <!-- 嘴 -->
+        <path d="M56.5 65.5 Q60 69 63.5 65.5" stroke="#e891a4" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- 猫耳 -->
+        <polygon points="41,27 48,8 56,27" fill="url(#g1)"/>
+        <polygon points="43,25 48,14 53,25" fill="#ffcdd8" opacity="0.6"/>
+        <polygon points="64,27 72,8 79,27" fill="url(#g1)"/>
+        <polygon points="67,25 72,14 77,25" fill="#ffcdd8" opacity="0.6"/>
+        <!-- 耳机 -->
+        <path d="M30 48 Q26 26 44 19 Q54 15 60 15 Q66 15 76 19 Q94 26 90 48" stroke="url(#g2)" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <rect x="24" y="46" width="11" height="17" rx="5.5" fill="url(#g2)"/>
+        <rect x="25" y="48" width="4" height="8" rx="2" fill="#ffd4e0" opacity="0.4"/>
+        <rect x="85" y="46" width="11" height="17" rx="5.5" fill="url(#g2)"/>
+        <rect x="91" y="48" width="4" height="8" rx="2" fill="#ffd4e0" opacity="0.4"/>
+        <!-- 麦克风 -->
+        <line x1="90" y1="56" x2="101" y2="47" stroke="url(#g3)" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="103" cy="44" r="5.5" fill="url(#g2)"/>
+        <!-- 樱花发饰 -->
+        <circle cx="80" cy="20" r="5.5" fill="#ffb7c5" opacity="0.9"/>
+        <circle cx="76" cy="15" r="3.5" fill="#fff0f3" opacity="0.9"/>
+        <circle cx="84" cy="15" r="3.5" fill="#fff0f3" opacity="0.9"/>
+        <circle cx="80" cy="12" r="2.5" fill="#ffcdd8" opacity="0.7"/>
+        <!-- 领口蝴蝶结 -->
+        <path d="M48 84 Q54 80 54 86 Q54 92 48 88 Q52 86 48 84Z" fill="url(#g1)" opacity="0.8"/>
+        <path d="M72 84 Q66 80 66 86 Q66 92 72 88 Q68 86 72 84Z" fill="url(#g1)" opacity="0.8"/>
+        <circle cx="60" cy="86" r="3" fill="#ffb7c5"/>
+      </svg>
+    </div>
+
+    <div class="slogan">
+      <h1>电竞少女</h1>
+      <p>EP · ESPORTS · GAME</p>
+    </div>
+
+    <div class="tags">
+      <span class="tag">✦ 电竞专区</span>
+      <span class="tag">✿ 樱花限定</span>
+      <span class="tag">⚡ 极速匹配</span>
+      <span class="tag">♕ 王者之路</span>
+    </div>
+
+    <div class="sparkle-row">
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+    </div>
+  </div>
+
+  <!-- 登录卡片 -->
+  <div class="login-card">
+    <div class="card-top-bar"></div>
+
+    <!-- 浮动星星装饰 -->
+    <div class="float-star s1">✦</div>
+    <div class="float-star s2">✧</div>
+    <div class="float-star s3">✦</div>
+
+    <div class="avatar-zone">
+      <div class="avatar-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      </div>
+      <div class="title-bubble">电竞少女</div>
+    </div>
+
+    <div class="card-title">
+      <h2>登录账号</h2>
+      <p class="sub">欢迎来到电竞少女的世界 ♡</p>
+    </div>
+
+    <form id="loginForm" autocomplete="off">
+      <div class="field">
+        <label>用户名 / 手机号</label>
+        <div class="input-wrap">
+          <input type="text" id="username" placeholder="请输入用户名或手机号" autocomplete="username">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>密码</label>
+        <div class="input-wrap">
+          <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+      </div>
+
+      <div class="remember-row">
+        <label class="remember-label">
+          <input type="checkbox" id="rememberMe">
+          <div class="checkbox-cute">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+          记住我
+        </label>
+      </div>
+
+      <button type="submit" class="btn-login">登 录</button>
+    </form>
+
+    <div class="footer">
+      <span>© 2024 电竞少女 · DianJingHuHang</span>
+      <span class="icp-filing">京ICP备XXXXXXXX号-1</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// 流星
+(function() {
+  var container = document.getElementById('meteorContainer');
+
+  function createMeteor() {
+    var m = document.createElement('div');
+    m.className = 'meteor';
+
+    var startX = 60 + Math.random() * 40; // vw
+    var startY = Math.random() * 30;       // vh
+    var dur = 0.8 + Math.random() * 0.6;
+    var delay = Math.random() * 8;
+
+    m.style.cssText =
+      'left:' + startX + '%;' +
+      'top:' + startY + '%;' +
+      'animation-duration:' + dur + 's;' +
+      'animation-delay:' + delay + 's;';
+
+    container.appendChild(m);
+
+    setTimeout(function() { m.remove(); }, (dur + delay) * 1000);
+  }
+
+  for (var i = 0; i < 4; i++) {
+    setTimeout(createMeteor, i * 2000);
+  }
+  setInterval(createMeteor, 6000);
+})();
+
+// 浮动几何
+(function() {
+  var container = document.getElementById('geoContainer');
+  var types = ['diamond', 'circle', 'cross', 'triangle', 'ring'];
+
+  function createGeo() {
+    var el = document.createElement('div');
+    var type = types[Math.floor(Math.random() * types.length)];
+    el.className = 'geo ' + type;
+
+    var startX = Math.random() * 95;
+    var dur = 5 + Math.random() * 5;
+    var del = Math.random() * 4;
+    var size = 12 + Math.random() * 14;
+
+    el.style.cssText =
+      'left:' + startX + '%;' +
+      'bottom:' + (Math.random() * 30) + '%;' +
+      'animation-duration:' + dur + 's;' +
+      'animation-delay:' + del + 's;' +
+      'opacity:0;';
+
+    if (type === 'diamond' || type === 'ring') {
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+    } else if (type === 'circle') {
+      el.style.width = (size - 2) + 'px';
+      el.style.height = (size - 2) + 'px';
+    }
+
+    container.appendChild(el);
+
+    setTimeout(function() { el.remove(); }, (dur + del) * 1000);
+  }
+
+  for (var i = 0; i < 18; i++) {
+    setTimeout(createGeo, i * 400);
+  }
+  setInterval(createGeo, 1200);
+})();
+
+// 樱花飘落
+(function() {
+  var container = document.getElementById('sakuraContainer');
+
+  function createPetal() {
+    var p = document.createElement('div');
+    p.className = 'petal';
+
+    var size = 7 + Math.random() * 11;
+    var startX = Math.random() * 100;
+    var dur = 6 + Math.random() * 9;
+    var del = Math.random() * 6;
+    var op = 0.35 + Math.random() * 0.5;
+
+    p.style.cssText =
+      'width:' + size + 'px;' +
+      'height:' + size + 'px;' +
+      'left:' + startX + '%;' +
+      'animation-duration:' + dur + 's;' +
+      'animation-delay:' + del + 's;' +
+      'opacity:' + op;
+
+    container.appendChild(p);
+
+    setTimeout(function() { p.remove(); }, (dur + del) * 1000);
+  }
+
+  for (var i = 0; i < 30; i++) {
+    setTimeout(createPetal, i * 280);
+  }
+  setInterval(createPetal, 900);
+})();
+
+// 登录提交
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = this.querySelector('.btn-login');
+  var orig = btn.textContent;
+  btn.textContent = '登录中...';
+  btn.disabled = true;
+
+  setTimeout(function() {
+    btn.textContent = '登录成功 ✦';
+    btn.style.background = 'linear-gradient(135deg, #a8e6cf, #56c596)';
+    setTimeout(function() {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 2200);
+  }, 1600);
+});
+</script>
+</body>
+</html>
