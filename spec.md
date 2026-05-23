@@ -1,6 +1,6 @@
 # eSportClub 电竞陪玩店铺管理系统 — 需求规格文档
 
-> 文档版本：v1.0
+> 文档版本：v1.1
 > 创建日期：2026-05-23
 > 状态：草稿（待确认）
 
@@ -39,7 +39,8 @@
 
 | 角色 | 职责 | 可访问模块 |
 | ---- | ---- | ---------- |
-| 店长 / 超级管理员 | 全局管理、结算、店规配置 | 所有模块 |
+| 超级管理员 | 唯一账号（admin），站点配置、创建/删除所有角色 | 所有模块 + 系统配置 |
+| 店长 / 普通管理员 | 店铺运营管理、结算、店规配置（不能删除超级管理员） | 所有业务模块 |
 | 客服 | 接待客户、创建/派发订单、验收、充值录入、老板账号管理 | 客服工作台、售后工作台 |
 | 考核官 | 陪玩入职审核、认证审核 | 考核工作台 |
 | 财务 | 充值/提现/收支管理 | 财务工作台 |
@@ -88,14 +89,36 @@
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
-| username | VARCHAR(50) | 登录用户名 |
+| username | VARCHAR(50) | 登录用户名（超级管理员固定为 admin，不可修改） |
 | password | VARCHAR(255) | 密码（加密） |
 | role | ENUM | super_admin / shop_owner / cs / assessor / finance |
 | nickname | VARCHAR(50) | 昵称 |
 | status | TINYINT | 1启用 0禁用 |
+| is_super | TINYINT | 1=超级管理员（仅 admin 本人），0=普通管理员 |
 | created_at | DATETIME | |
+| updated_at | DATETIME | |
 
-### 4.2 companion（陪玩表）
+> **超级管理员规则：**
+> - 唯一账号 `admin`，初始密码 `admin`，首次登录后强制要求修改密码
+> - `is_super=1` 的账号不可删除、不可修改 role
+> - 普通管理员 `is_super=0`，由超级管理员创建
+
+### 4.2 system_config（系统配置表）
+| 字段 | 类型 | 说明 |
+| ---- | ---- | ---- |
+| id | BIGINT PK | |
+| site_name | VARCHAR(100) | 站点名称 |
+| site_title | VARCHAR(100) | 主标题 |
+| site_subtitle | VARCHAR(200) | 副标题 |
+| site_logo | VARCHAR(255) | Logo 图片 URL |
+| custom_tags | JSON | 自定义标签（最多5个）["标签1","标签2"] |
+| welcome_message | TEXT | 欢迎语 |
+| copyright | VARCHAR(200) | 版权声明 |
+| icp_info | VARCHAR(100) | 备案信息 |
+| created_at | DATETIME | |
+| updated_at | DATETIME | |
+
+### 4.3 companion（陪玩表）
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
@@ -123,7 +146,7 @@
 | created_at | DATETIME | |
 | updated_at | DATETIME | |
 
-### 4.3 boss（老板表）
+### 4.4 boss（老板表）
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
@@ -144,7 +167,7 @@
 | created_at | DATETIME | |
 | updated_at | DATETIME | |
 
-### 4.4 boss_account（老板账户表）
+### 4.5 boss_account（老板账户表）
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
@@ -159,7 +182,7 @@
 | balance | DECIMAL(10,2) | 余额合计 |
 | created_at | DATETIME | |
 
-### 4.5 recharge_record（充值记录表）
+### 4.6 recharge_record（充值记录表）
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
@@ -177,7 +200,7 @@
 | status | ENUM | pending / confirmed / cancelled |
 | created_at | DATETIME | |
 
-### 4.6 order（订单表）
+### 4.7 order（订单表）
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
@@ -209,7 +232,7 @@
 | created_at | DATETIME | |
 | updated_at | DATETIME | |
 
-### 4.7 salary_settlement（工资结算表）
+### 4.8 salary_settlement（工资结算表）
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
@@ -227,7 +250,7 @@
 | settled_at | DATETIME | 结算时间 |
 | created_at | DATETIME | |
 
-### 4.8 withdraw_record（提现记录表）
+### 4.9 withdraw_record（提现记录表）
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
@@ -240,7 +263,7 @@
 | remark | TEXT | 备注 |
 | created_at | DATETIME | |
 
-### 4.9 complaint（售后投诉表）
+### 4.10 complaint（售后投诉表）
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
 | id | BIGINT PK | |
@@ -256,7 +279,7 @@
 | cs_remark | TEXT | 客服备注 |
 | created_at | DATETIME | |
 
-### 4.10 dict_game_category（游戏类别字典）
+### 4.11 dict_game_category（游戏类别字典）
 | 字段 | 说明 |
 | ---- | ---- |
 | id | |
@@ -264,7 +287,7 @@
 | sort | 排序 |
 | status | 启用/禁用 |
 
-### 4.11 dict_game_item（游戏项目字典）
+### 4.12 dict_game_item（游戏项目字典）
 | 字段 | 说明 |
 | ---- | ---- |
 | id | |
@@ -272,26 +295,26 @@
 | name | 项目名称 |
 | default_price | 默认单价 |
 
-### 4.12 dict_extra_fee（附加费用字典）
+### 4.13 dict_extra_fee（附加费用字典）
 | 字段 | 说明 |
 | ---- | ---- |
 | id | |
 | name | 1陪2+20 / 过年+10 等 |
 | amount | 金额 |
 
-### 4.13 dict_discount（折扣字典）
+### 4.14 dict_discount（折扣字典）
 | 字段 | 说明 |
 | ---- | ---- |
 | id | |
 | value | 0.95 / 0.9 / 0.85 / 0.8 / 0.75 / 0.7 / 0.5 |
 
-### 4.14 dict_commission_rate（陪玩提成字典）
+### 4.15 dict_commission_rate（陪玩提成字典）
 | 字段 | 说明 |
 | ---- | ---- |
 | id | |
 | value | 0.70 / 0.80 / 0.90 |
 
-### 4.15 dict_deposit（押金字典）
+### 4.16 dict_deposit（押金字典）
 | 字段 | 说明 |
 | ---- | ---- |
 | id | |
@@ -300,6 +323,26 @@
 ---
 
 ## 五、功能模块详细说明
+
+### 5.0 超级管理员（专属）
+
+#### 5.0.1 管理员管理
+- 管理员列表（普通管理员）
+- 创建管理员：填写用户名/密码/角色/昵称
+- 删除管理员（禁止删除 `is_super=1` 的超级管理员）
+- 启用/禁用管理员
+
+#### 5.0.2 系统配置
+| 字段 | 类型 | 说明 |
+| ---- | ---- | ---- |
+| 站点名称 | text | 站点显示名称 |
+| 主标题 | text | 浏览器标签/首页大标题 |
+| 副标题 | text | 副标题/描述语 |
+| Logo | upload | 图片，建议尺寸 200×60px |
+| 自定义标签 | multi-input | 最多5个标签（如"24H营业"、"专业陪玩"） |
+| 欢迎语 | textarea | 登录后首页展示 |
+| 版权声明 | text | |
+| 备案信息 | text | 如"京ICP备XXXXXXXX号" |
 
 ### 5.1 店长工作台
 

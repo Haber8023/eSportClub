@@ -14,8 +14,9 @@
 **步骤：**
 1. 连接 MySQL 服务器（root/Wsd2026@Haber）
 2. 创建数据库 `eSportClub`，字符集 utf8mb4
-3. 按实体建表（admin / companion / boss / boss_account / recharge_record / order / salary_settlement / withdraw_record / complaint / dict_* 等）
-4. 插入字典表初始数据
+3. 按实体建表（admin / system_config / companion / boss / boss_account / recharge_record / order / salary_settlement / withdraw_record / complaint / dict_* 等）
+4. 初始化超级管理员账号（admin / admin）
+5. 插入字典表初始数据
 
 ### 1.2 后端项目初始化
 **产出物：**
@@ -26,20 +27,23 @@
 2. 初始化 Spring Boot 项目（Maven，依赖：Spring Web / MyBatis-Plus / MySQL / JWT / Lombok）
 3. 配置 `application.yml` 连接 eSportClub 数据库
 4. 实现 JWT 鉴权逻辑（复用 wusidai 模式）
-5. 统一响应结构 `Result<T>` + 全局异常处理
-6. 推送 GitHub
+5. 实现超级管理员保护逻辑（is_super=1 不可删除/不可改角色）
+6. 统一响应结构 `Result<T>` + 全局异常处理
+7. 推送 GitHub
 
 ### 1.3 前端项目初始化
 **产出物：**
 - [ ] `frontend-admin/` — React/Vue 管理后台项目
 - [ ] `frontend-companion/` — React/Vue 陪玩端项目
+- [ ] `frontend-boss/` — React/Vue 老板端项目
 
 **步骤：**
 1. 创建 React 项目（Vite + Ant Design / Element Plus）
-2. 配置路由结构
+2. 配置路由结构（区分超级管理员/店长/客服等角色菜单）
 3. 配置 Axios 封装（带 JWT token）
 4. 统一布局组件（侧边导航 + 顶部栏）
-5. 推送 GitHub
+5. 超级管理员专属菜单：管理员管理 / 系统配置
+6. 推送 GitHub
 
 ---
 
